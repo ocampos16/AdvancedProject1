@@ -15,6 +15,12 @@ def get_tweet_score(s):
 	# sentiment scores for each individual word.
 	sentiment_score = 0  # sentiment_score
 
+	# Here we specify the denominator that we will use to get the average
+	# We will only take into account the words that have a score in wordnet.synsets
+	syn_denominator = 0
+	# We specify the overall score
+	overall_score = 0
+
 	# Now we iterate through each word to get the
 	for w in split_text:
 		synset = wordnet.synsets(w)
@@ -32,11 +38,14 @@ def get_tweet_score(s):
 			# Then we calculate the sentiment_score for this word and add it up to the scores of the previous words.
 			sentiment_score += neg_score - pos_score  # The sentiment_score of all words in the tweet.
 
-	# We get the length of the list of words contained in a tweet.
-	length = len(split_text)
-	# Now we calculate the average and assign it to the overall_score
-	# The overall_score will be the mean of each score
-	overall_score = sentiment_score / length
+			# We increase the syn_denominator count + 1
+			syn_denominator += 1
+
+	# Now we will calculate the average using syn_denominator as denominator
+	if syn_denominator != 0:
+		# Now we calculate the average and assign it to the overall_score
+		# The overall_score will be the mean of each score
+		overall_score = sentiment_score / syn_denominator
 
 	# We return the tweet's overall_score.
 	return overall_score
@@ -49,6 +58,7 @@ print('Starting program...')
 # Here is a list that contains the names of the txt files that contain the twitter data
 # Note: Txt files are not well-formed json files, each line contains a different json containing a tweet.
 files_list = ['tweets_climatechange_06-03-2020', 'tweets_fridaysforfuture_09-03-2020', 'tweets_savetheplanet_09-03-2020']
+# files_list = ['tweets_climatechange_06-03-2020_test', 'tweets_fridaysforfuture_09-03-2020_test', 'tweets_savetheplanet_09-03-2020_test']
 
 # We iterate through all the files and extract the overall sentiment score for each individual tweet.
 # Formula is overall_score = negative_score - positive_score; negative_score and positive_score are both integers >= 0.
@@ -72,20 +82,23 @@ for file in files_list:
 		# Data Extraction
 		# We parse each fine of the file.
 		parsed_json = (json.loads(line))
-		# We extract the text from the parsed line
-		text = parsed_json['text']
-		# We get the score for each sentence
-		score = get_tweet_score(text)
 
-		# Dictionary creation
-		# We create a dictionary for the sentence
-		sentences.append({
-			'text': text,
-			'score': score
-		})
+		# Discriminate to only take english sentences
+		if parsed_json['lang'] == 'en':
+			# We extract the text from the parsed line
+			text = parsed_json['text']
+			# We get the score for each sentence
+			score = get_tweet_score(text)
 
-		# We increase the counter
-		count += 1
+			# Dictionary creation
+			# We create a dictionary for the sentence
+			sentences.append({
+				'text': text,
+				'score': score
+			})
+
+			# We increase the counter
+			count += 1
 
 	# We create a new file for each hash tag file that we consulted.
 	with open('Results/'+file+'.json', 'w') as outfile:
