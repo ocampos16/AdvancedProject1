@@ -57,8 +57,8 @@ print('Starting program...')
 
 # Here is a list that contains the names of the txt files that contain the twitter data
 # Note: Txt files are not well-formed json files, each line contains a different json containing a tweet.
-files_list = ['tweets_climatechange_06-03-2020', 'tweets_fridaysforfuture_09-03-2020', 'tweets_savetheplanet_09-03-2020']
-# files_list = ['tweets_climatechange_06-03-2020_test', 'tweets_fridaysforfuture_09-03-2020_test', 'tweets_savetheplanet_09-03-2020_test']
+# files_list = ['tweets_climatechange_06-03-2020', 'tweets_fridaysforfuture_09-03-2020', 'tweets_savetheplanet_09-03-2020']
+files_list = ['tweets_climatechange_06-03-2020_test', 'tweets_fridaysforfuture_09-03-2020_test', 'tweets_savetheplanet_09-03-2020_test']
 
 # We iterate through all the files and extract the overall sentiment score for each individual tweet.
 # Formula is overall_score = negative_score - positive_score; negative_score and positive_score are both integers >= 0.
