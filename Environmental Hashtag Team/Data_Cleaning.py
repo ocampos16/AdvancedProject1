@@ -76,6 +76,3 @@ def Data_Cleaning(lines):
 #f = open('emoji.txt',encoding="utf8")
 # We read the lines of the txt file.
 #lines = f.readlines()
-lines="I am very happy :). Have a nice day 👍. Also, I miss you :), take care😘! I can't leave."
-word_embed=Data_Cleaning(lines)
-print(word_embed)
