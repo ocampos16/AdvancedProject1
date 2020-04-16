@@ -16,6 +16,8 @@ from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 from nltk.stem.porter import PorterStemmer
 
+import re
+
 # This function cleans the data and makes it ready for Word Embedding
 def Data_Cleaning(lines):
     # Define a dictioary of emoticons
