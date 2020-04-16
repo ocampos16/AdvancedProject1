@@ -5,6 +5,7 @@ from nltk.corpus import sentiwordnet as swn # We import sentiwordnet
 
 # Import libraries needed for data cleaning
 import emoji
+import re
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 from nltk.stem.porter import PorterStemmer
@@ -54,13 +55,22 @@ def Data_Cleaning(lines):
         stemmed = [porter.stem(word) for word in words]
         return stemmed
 
+	# Function to remove hyperlinks from a tweet
+	# Created by Otoniel Campos
+    def remove_hyperlinks(tweet):
+	    result = re.sub(r"http\S+", "", tweet)
+	    # tweet = re.sub(r"https?:\/\/(www\.)?[-a-zA-Z0–9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0–9@:%_\+.~#?&//=]*)", "", tweet, flags=re.MULTILINE) # to remove links that start with HTTP/HTTPS in the tweet
+	    # tweet = re.sub(r"[-a - zA - Z0–9 @: %._\+~  # =]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0–9@:%_\+.~#?&//=]*)", "", tweet, flags=re.MULTILINE) # to remove other url links
+	    return result
+
     # Task of data Cleaning function starts here
     text=str(lines)
     text=text.replace("ufeff"," ")
     text=text.replace("'","")
     emoticons_treated=convert_emoticons(text)
     emo_treated_lines=convert_emoji_to_word(emoticons_treated)
-    cleaned_text=clean_data(emo_treated_lines)
+    removed_hyperlinks=remove_hyperlinks(emo_treated_lines)
+    cleaned_text=clean_data(removed_hyperlinks)
     # The final cleaned text is ready for word embedding
     return set(cleaned_text)
 
