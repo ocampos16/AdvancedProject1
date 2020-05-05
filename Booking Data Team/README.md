@@ -1,7 +1,7 @@
 # AdvancedProject1
 This is the Advanced Project 1 repository with Prof. Adalbert
 
-Title: Sentiment Analyis of Reviews on Tripadvisor(Unsupervised)
+Title: Sentiment Analysis of Reviews on Tripadvisor(Unsupervised)
 
 The additional approach has the files in following sequence:
 1.Tripadvisor_Crawler.py
