@@ -22,7 +22,7 @@
     
     
     sid = SentimentIntensityAnalyzer()
-    df = pd.read_csv('reviews.csv',delimiter=',', encoding="utf-8-sig")
+    df = pd.read_csv('crawled_data.csv',delimiter=',', encoding="utf-8-sig")
     print(df.head())
     print(df['rating'].value_counts())
     
