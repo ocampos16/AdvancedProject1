@@ -12,7 +12,7 @@
  
  class CsvPipeline(object):
     def __init__(self):
-        self.file = open("tripadvisor_reviews.csv", 'wb')
+        self.file = open("crawled_data.csv", 'wb')
         self.exporter = CsvItemExporter(self.file, unicode)
         self.exporter.start_exporting()
 
