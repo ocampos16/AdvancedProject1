@@ -12,9 +12,11 @@ import scrapy
 class ReviewItem(scrapy.Item):
     # Items to get
     
+    date_of_review = scrapy.Field()
     reviewcontent = scrapy.Field()
     reviewtitle = scrapy.Field()
     rating = scrapy.Field()
     hotelname = scrapy.Field()
+    
     #url = scrapy.Field()
 
